@@ -23,11 +23,10 @@ namespace MailAuto
 			};
 
 			using (var client = new SmtpClient ()) {
-				client.CheckCertificateRevocation = false;
-				client.Connect ("m.krasnodar.ru", 465, SecureSocketOptions.Auto);
+				client.Connect ("m.krasnodar.ru", 465, SecureSocketOptions.None);
 
 				// Note: only needed if the SMTP server requires authentication
-				client.Authenticate ("a.kadantsev@mtsr.krasnodar.ru", "VSdfSdf43**dfs4");
+				client.Authenticate ("MTSR/a.kadantsev", "Vbhnhelvfq1");
 
 				client.Send (message);
 				client.Disconnect (true);
