@@ -17,11 +17,12 @@ namespace MailAuto
 				   textBody = @"Hey Chandler,I just wanted to let you know that Monica and 
 							    I were going to go play some paintball, you in?
 								--Joey",
-		           server = "m.krasnodar.ru", login = "MTSR/a.kadantsev", pass = "Vbhnhelvfq1";
+				   server = "m.krasnodar.ru", login = "MTSR/a.kadantsev", pass = "Vbhnhelvfq1";
 			int port = 465;
-			SentMail mail = new SentMail ();
-			mail.Sent (nameAdresFrom, adressFrom, nameAdresTo, adresTo, 
-				       title, textBody, server, login, pass, port);
+			string[] attachmentFile = { "file.txt", "file1.txt" };
+			SendMail mail = new SendMail ();
+			mail.Send (nameAdresFrom, adressFrom, nameAdresTo, adresTo, 
+				       title, textBody, attachmentFile, server, login, pass, port);
 			Console.WriteLine ("Sent");
 			Console.ReadKey ();
 		}

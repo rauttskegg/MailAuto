@@ -12,11 +12,11 @@ using static System.Net.Mime.MediaTypeNames;
 
 namespace MailAuto
 {
-	public class SentMail
+	public class SendMail
 	{
-		public void Sent (string nameAdresFrom, string adressFrom, 
+		public void Send (string nameAdresFrom, string adressFrom, 
 					     string nameAdresTo, string adresTo, string title,
-						 string textBody, string server, string login,
+						 string textBody, string[] attachmentFile, string server, string login,
 						 string pass, int port)
 		{
 			var message = new MimeMessage ();
@@ -24,10 +24,13 @@ namespace MailAuto
 			message.From.Add (new MailboxAddress (nameAdresFrom, adressFrom));
 			message.To.Add (new MailboxAddress (nameAdresTo, adresTo));
 			message.Subject = title;
-
-			message.Body = new TextPart ("plain") {
-				Text = textBody
-			};
+			var builder = new BodyBuilder ();
+			builder.TextBody = textBody;
+			for (int i = 0; i < attachmentFile.Length; i++) 
+			{
+				builder.Attachments.Add (attachmentFile[i]);
+			}
+			message.Body = builder.ToMessageBody();
 
 			using (var client = new SmtpClient ()) {
 				client.CheckCertificateRevocation = false;
