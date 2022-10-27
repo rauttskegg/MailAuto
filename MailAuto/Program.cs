@@ -11,6 +11,7 @@ namespace MailAuto
 		static void Main (string[] args)
 		{
 			Console.WriteLine ("Hello, World!");
+			var message = new MimeMessage ();
 		}
 	}
 }
