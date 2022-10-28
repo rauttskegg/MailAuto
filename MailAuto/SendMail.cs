@@ -14,10 +14,17 @@ namespace MailAuto
 {
 	public class SendMail
 	{
-		public void Send (string nameAdresFrom, string adressFrom, 
-					     string nameAdresTo, string adresTo, string title,
-						 string textBody, string[] attachmentFile, string server, string login,
-						 string pass, int port)
+		public void Send (string nameAdresFrom, 
+						  string adressFrom, 
+						  string nameAdresTo, 
+						  string adresTo, 
+						  string title,
+						  string textBody, 
+						  string[] attachmentFile, 
+						  string server, 
+						  string login,
+						  string pass, 
+						  int port)
 		{
 			var message = new MimeMessage ();
 

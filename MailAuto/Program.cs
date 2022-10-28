@@ -9,21 +9,33 @@ namespace MailAuto
 {
 	internal class Program
 	{
+
 		static void Main (string[] args)
 		{
-			string nameAdresFrom = "Anton", adressFrom = "a.kadantsev@mtsr.krasnodar.ru",
-				   nameAdresTo = "Mrs. Chanandler Bong", adresTo = "kadantsev.anton@yandex.ru",
-	               title = "Test", 
-				   textBody = @"Hey Chandler,I just wanted to let you know that Monica and 
-							    I were going to go play some paintball, you in?
-								--Joey",
-				   server = "m.krasnodar.ru", login = "MTSR/a.kadantsev", pass = "Vbhnhelvfq1";
-			int port = 465;
-			string[] attachmentFile = { "file.txt", "file1.txt" };
-			SendMail mail = new SendMail ();
-			mail.Send (nameAdresFrom, adressFrom, nameAdresTo, adresTo, 
-				       title, textBody, attachmentFile, server, login, pass, port);
-			Console.WriteLine ("Sent");
+			while (true) 
+			{
+				ConfigGet configGet = new ConfigGet ();
+				SendMail mail = new SendMail ();
+				for (int i = 0; i < configGet.AdresTo.Length; i++) {
+					if (configGet.AttachmentFile[i].Length > 0) {
+						mail.Send (configGet.NameAdresFrom,
+								   configGet.AdressFrom,
+								   configGet.NameAdresTo,
+								   configGet.AdresTo[i],
+								   configGet.Title,
+								   configGet.TextBody,
+								   configGet.AttachmentFile[i],
+								   configGet.Server,
+								   configGet.Login,
+								   configGet.Pass,
+								   configGet.Port);
+						for (int j = 0; j < configGet.AttachmentFile[i].Length; j++)
+							File.Delete (configGet.AttachmentFile[i][j]);
+					}
+				}
+				Console.WriteLine ("Sent");
+				Thread.Sleep (configGet.TimeSleep);
+			}
 			Console.ReadKey ();
 		}
 	}
