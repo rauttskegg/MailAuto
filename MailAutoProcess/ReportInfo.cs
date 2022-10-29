@@ -10,7 +10,7 @@ namespace MailAutoProcess
 	{
 		public void showReportInfoAdres (ConfigGet configGet, int i)
 		{
-			Console.WriteLine ("Письмо отправлено");
+			Console.WriteLine ($"Письмо отправлено {DateTime.Now}");
 			Console.WriteLine ($"Получатель: {configGet.AdresTo[i]}") ;
 			Console.WriteLine ($"Вложение: {configGet.FilesNames[i].Length}") ;
 			for (int j = 0; j < configGet.FilesNames[i].Length; j++) 
