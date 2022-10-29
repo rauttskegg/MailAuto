@@ -9,6 +9,7 @@ using MimeKit;
 using MailKit.Security;
 
 using static System.Net.Mime.MediaTypeNames;
+using System.Net.Mime;
 
 namespace MailAutoProcess
 {
@@ -34,7 +35,7 @@ namespace MailAutoProcess
 			var builder = new BodyBuilder ();
 			builder.TextBody = textBody;
 			for (int i = 0; i < attachmentFile.Length; i++) {
-				builder.Attachments.Add (attachmentFile[i]);
+				builder.Attachments.Add ($"{attachmentFile[i]}");
 			}
 			message.Body = builder.ToMessageBody ();
 
