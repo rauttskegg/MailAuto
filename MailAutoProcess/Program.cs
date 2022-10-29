@@ -14,9 +14,11 @@ namespace MailAutoProcess
 
 		static void Main (string[] args)
 		{
+			Console.WriteLine ("Старт");
 			while (true) {
 				ConfigGet configGet = new ConfigGet ();
 				SendMail mail = new SendMail ();
+				ReportInfo reportInfo = new ReportInfo ();
 				for (int i = 0; i < configGet.AdresTo.Length; i++) {
 					if (configGet.AttachmentFile[i].Length > 0) {
 						mail.Send (configGet.NameAdresFrom,
@@ -30,14 +32,14 @@ namespace MailAutoProcess
 								   configGet.Login,
 								   configGet.Pass,
 								   configGet.Port);
+						reportInfo.showReportInfoAdres (configGet, i);
 						for (int j = 0; j < configGet.AttachmentFile[i].Length; j++)
 							File.Delete (configGet.AttachmentFile[i][j]);
 					}
 				}
-				Console.WriteLine ("Sent");
+				
 				Thread.Sleep (configGet.TimeSleep);
 			}
-			Console.ReadKey ();
 		}
 	}
 }

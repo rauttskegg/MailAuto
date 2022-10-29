@@ -29,6 +29,11 @@ namespace MailAutoProcess
 		private string[] adresToFullPath;
 		private int timeSleep;
 		private string AddTextToTitle;
+		private string[][] filesNames;
+		public string[][] FilesNames {
+			get => filesNames;
+			set => filesNames = value;
+		}
 		public int TimeSleep {
 			get => timeSleep;
 			set => timeSleep = value;
@@ -111,7 +116,23 @@ namespace MailAutoProcess
 			}
 			return adresToName;
 		}
-		private string[] GetTitle (string[][] file, string AddTextToTitle)
+		private string[][] GetFileNames (string[][] file)
+		{
+			string[][] fileName = new string[file.Length][];
+			for (int i = 0; i < file.Length; i++) {
+				fileName[i] = new string[file[i].Length];
+				for (int j = 0; j < file[i].Length; j++) {
+					fileName[i][j] = file[i][j];
+				}
+			}
+			for (int i = 0; i < fileName.Length; i++) {
+				for (int j = 0; j < fileName[i].Length; j++) {
+					fileName[i][j] = new DirectoryInfo (fileName[i][j]).Name;
+				}
+			}
+			return fileName;
+		}
+			private string[] GetTitle (string[][] file, string AddTextToTitle)
 		{
 			string[][] fileName = new string[file.Length][];
 			for (int i = 0; i < file.Length; i++) 
@@ -173,6 +194,7 @@ namespace MailAutoProcess
 			title = GetTitle (files, AddTextToTitle);
 			attachmentFile = files;
 			port = Convert.ToInt32(config.Get ("port"));
+			filesNames = GetFileNames(files);
 		}
 	}
 }
