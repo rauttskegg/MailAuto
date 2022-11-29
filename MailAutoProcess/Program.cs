@@ -6,6 +6,8 @@ using MimeKit;
 using MailKit.Security;
 using System.Threading;
 using System.IO;
+using System.Runtime.InteropServices;
+using System.Threading.Tasks;
 
 namespace MailAutoProcess
 {
@@ -14,6 +16,9 @@ namespace MailAutoProcess
 
 		static void Main (string[] args)
 		{
+			Console.OutputEncoding = System.Text.Encoding.UTF8;
+			Console.InputEncoding = System.Text.Encoding.UTF8;
+			Console.WriteLine ("Current Input Encoding Scheme: {0}", Console.InputEncoding);
 			Console.WriteLine ("Старт");
 			while (true) {
 				ConfigGet configGet = new ConfigGet ();
